@@ -28,4 +28,6 @@ app.use(async ctx => {
   ctx.body = "Telegram server project";
 });
 
-app.listen(3000);
+// app.listen(3000);
+
+module.exports = app.callback()
