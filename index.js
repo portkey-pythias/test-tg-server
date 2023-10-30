@@ -25,7 +25,7 @@ app.use(async (ctx, next) => {
 // response
 
 app.use(async ctx => {
-  ctx.body = 'Hello World 111111222222';
+  ctx.body = "Telegram server project";
 });
 
 app.listen(3000);
