@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node service/xiaoshitouBot.js & node service/beangotownBot.js",
-    "start:prod": "pm2 start service/xiaoshitouBot.js --watch && pm2 start service/beangotownBot.js --watch",
+    "dev": "node service/xiaoshitouBot.js & node service/beangotownBot.js",
+    "start": "pm2 start service/xiaoshitouBot.js --watch && pm2 start service/beangotownBot.js --watch",
     "stop": "pm2 stop all",
     "clean": "npm run stop && pm2 delete all"
   },
@@ -13,10 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.3.1",
-    "koa": "^2.14.2",
-    "koa-bodyparser": "^4.4.1",
-    "koa-router": "^12.0.1",
     "node-telegram-bot-api": "^0.63.0",
     "pm2": "^5.3.0"
   }

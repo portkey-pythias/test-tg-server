@@ -1,32 +1,67 @@
+const TelegramBot = require("node-telegram-bot-api");
 
-const Koa = require("koa");
+module.export = async (request, response) => {
+  try {
+    const token = "6914488686:AAG1Fz4mDr2-xIW49x3aob-1BuXRTLRmJCE";
 
+    const bot = new TelegramBot(token, {
+      polling: true,
+      // request: {
+      //   proxy: "http://127.0.0.1:7890",
+      // },
+    });
 
-const app = new Koa();
+    // inline
+    bot.onText(/^\/start_inline$/, (msg, match) => {
+      const chatId = msg.chat.id;
+      bot.sendMessage(chatId, "start by inline", {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "open Beangotown",
+                web_app: {
+                  url: "https://www.beangotown.com",
+                },
+              },
+            ],
+          ],
+        },
+      });
+    });
 
-// logger
+    // keybord
+    bot.onText(/\/start_keybord/, (msg) => {
+      const chatId = msg.chat.id;
+      bot.sendMessage(chatId, "start by keybord", {
+        reply_markup: {
+          keyboard: [
+            [
+              {
+                text: "open Beangotown",
+                web_app: {
+                  url: "https://www.beangotown.com",
+                },
+              },
+            ],
+          ],
+        },
+      });
+    });
 
-app.use(async (ctx, next) => {
-  await next();
-  const rt = ctx.response.get('X-Response-Time');
-  console.log(`${ctx.method} ${ctx.url} - ${rt}`);
-});
+    // say hello
+    bot.onText(/^\/hello$/, (msg) => {
+      const chat = msg.chat;
+      bot.sendMessage(
+        chat.id,
+        `hello ${chat.last_name}.${chat.first_name}, welcome to Beangotown`
+      );
+    });
 
-// x-response-time
-
-app.use(async (ctx, next) => {
-  const start = Date.now();
-  await next();
-  const ms = Date.now() - start;
-  ctx.set('X-Response-Time', `${ms}ms`);
-});
-
-// response
-
-app.use(async ctx => {
-  ctx.body = "Telegram server project";
-});
-
-// app.listen(3000);
-
-module.exports = app.callback()
+    bot.on("polling_error", (error) => {
+      console.log("error", error);
+    });
+  } catch (e) {
+    console.log("error", e);
+  }
+};

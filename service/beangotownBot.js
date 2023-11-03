@@ -3,9 +3,9 @@ const token = "6914488686:AAG1Fz4mDr2-xIW49x3aob-1BuXRTLRmJCE";
 
 const bot = new TelegramBot(token, {
   polling: true,
-  request: {
-    proxy: "http://127.0.0.1:7890",
-  },
+  // request: {
+  //   proxy: "http://127.0.0.1:7890",
+  // },
 });
 
 // inline
