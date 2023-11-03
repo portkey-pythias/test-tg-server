@@ -1,6 +1,5 @@
 
-const Koa = require('koa');
-const TG_bot = require('./service/bot')
+const Koa = require("koa");
 
 
 const app = new Koa();

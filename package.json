@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "start:prod": "pm2 start index.js"
+    "start": "node service/xiaoshitouBot.js & node service/beangotownBot.js",
+    "start:prod": "pm2 start service/xiaoshitouBot.js --watch && pm2 start service/beangotownBot.js --watch",
+    "stop": "pm2 stop all",
+    "clean": "npm run stop && pm2 delete all"
   },
   "keywords": [],
   "author": "",

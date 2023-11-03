@@ -5,9 +5,9 @@ const token = "6317366127:AAHPEvgl5k-qfH3uFJ_aQ7slcqDt-vBtZZE";
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {
   polling: true,
-  // request: {
-  //   proxy: "http://127.0.0.1:7890",
-  // },
+  request: {
+    proxy: "http://127.0.0.1:7890",
+  },
 });
 
 bot.onText(/^\/start$/, (msg, match) => {
@@ -48,22 +48,62 @@ bot.onText(/^\/start$/, (msg, match) => {
   });
 });
 
-bot.onText(/^\/hello$/, () => {
+bot.onText(/\/question/, (msg) => {
   const chatId = msg.chat.id;
 
-  bot.sendMessage(chatId, `hello ${chatId}, welcome to xiaoshitou bot`);
-})
+  bot.sendMessage(chatId, "2+3=?", {
+    reply_markup: {
+      keyboard: [
+        [
+          {
+            text: "4",
+            callback_data: "A",
+          },
+          {
+            text: "5",
+            callback_data: "B",
+          },
+        ],
+        [
+          {
+            text: "6",
+            callback_data: "C",
+          },
+          {
+            text: "7",
+            callback_data: "D",
+          },
+        ],
+      ],
+    },
+  });
+});
 
 bot.on("callback_query", (callbackQuery) => {
+  console.log("callbackQuery: ", callbackQuery);
   bot
     .answerCallbackQuery(callbackQuery.id)
-    .then(() => bot.sendMessage(callbackQuery.message.chat.id, "your click!!!!"));
+    .then(() =>
+      bot.sendMessage(callbackQuery.message.chat.id, "your click!!!!")
+    );
 });
 
-bot.on("message", (msg) => {
-  const chatId = msg.chat.id;
-  bot.sendMessage(chatId, "hello xiaoshitou");
+bot.onText(/^\/hello$/, (msg) => {
+  const chat = msg.chat;
+
+  console.log("chat: ", chat);
+
+  bot.sendMessage(
+    chat.id,
+    `hello ${chat.last_name} ${chat.first_name}, welcome to xiaoshitou bot`
+  );
 });
+
+// bot.on("message", (msg) => {
+//   const chatId = msg.chat.id;
+//   // bot.sendMessage(chatId, "hello xiaoshitou");
+//   // console.log("msg:", msg);
+// });
 
 bot.on("polling_error", (error) => {
   console.log("error", error);
