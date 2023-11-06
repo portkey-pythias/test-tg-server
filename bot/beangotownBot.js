@@ -1,5 +1,6 @@
 const TelegramBot = require("node-telegram-bot-api");
-const token = "6914488686:AAG1Fz4mDr2-xIW49x3aob-1BuXRTLRmJCE";
+// const token = "6914488686:AAG1Fz4mDr2-xIW49x3aob-1BuXRTLRmJCE";
+const token = '6585384881:AAHcbpnXJz-zEv_P4KVibExfuu-OSt1FvD0';
 
 const bot = new TelegramBot(token, {
   polling: true,
