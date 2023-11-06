@@ -3,9 +3,9 @@ const token = "6317366127:AAHPEvgl5k-qfH3uFJ_aQ7slcqDt-vBtZZE";
 
 const bot = new TelegramBot(token, {
   polling: true,
-  // request: {
-  //   proxy: "http://127.0.0.1:7890",
-  // },
+  request: {
+    proxy: "http://127.0.0.1:7890",
+  },
 });
 
 bot.onText(/^\/start$/, (msg, match) => {
@@ -30,7 +30,7 @@ bot.onText(/^\/start$/, (msg, match) => {
           {
             text: "Beangotown",
             web_app: {
-              url: "https://www.beangotown.com/login",
+              url: "https://test-game-seven.vercel.app",
             },
           },
         ],

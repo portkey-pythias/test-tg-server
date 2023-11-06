@@ -19,7 +19,7 @@ bot.onText(/^\/start_inline$/, (msg, match) => {
           {
             text: "open Beangotown",
             web_app: {
-              url: "https://www.beangotown.com",
+              url: "https://test-game-seven.vercel.app?isTgAPP=true",
             },
           },
         ],
@@ -38,7 +38,7 @@ bot.onText(/\/start_keybord/, (msg) => {
           {
             text: "open Beangotown",
             web_app: {
-              url: "https://www.beangotown.com",
+              url: "https://test-game-seven.vercel.app?isTgAPP=true",
             },
           },
         ],
