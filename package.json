@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node bot/xiaoshitouBot.js & node bot/beangotownBot.js",
-    "start": "pm2 start bot/beangotownBot.js"
+    "dev": "node bot/beangotownBot.js",
+    "start": "pm2 start bot/beangotownBot.js",
+    "stop":  "pm2 stop all",
+    "clean": "yarn stop && pm2 delete all"
   },
   "keywords": [],
   "author": "",
