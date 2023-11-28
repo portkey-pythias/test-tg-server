@@ -52,5 +52,4 @@ function generateAuthToken(userIdentifier) {
   return userIdentifier;
 }
 
-// 将路由导出为一个函数，接收 Koa 应用实例作为参数
 module.exports = router;
