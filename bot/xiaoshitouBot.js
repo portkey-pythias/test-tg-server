@@ -30,7 +30,7 @@ bot.onText(/^\/start$/, (msg, match) => {
           {
             text: "Beangotown",
             web_app: {
-              url: "https://test-game-seven.vercel.app",
+              url: "https://www.beangotown.com/",
             },
           },
         ],
