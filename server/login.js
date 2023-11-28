@@ -3,6 +3,7 @@ const router = new Router();
 
 router.get("/auth/callback", async (ctx) => {
   try {
+    console.log("queryParameters: ", queryParameters);
     const queryParameters = ctx.request.query;
     const { user_id, auth_date, hash } = queryParameters;
     const botToken = "6317366127:AAHPEvgl5k-qfH3uFJ_aQ7slcqDt-vBtZZE";
@@ -25,7 +26,8 @@ router.get("/auth/callback", async (ctx) => {
     }
   } catch (e) {
     // 验证失败，处理错误逻辑
-    ctx.status(403).send("Invalid Telegram Login request");
+    ctx.status = 200;
+    ctx.body = { message: "login error", data: ctx.request.query };
   }
 });
 
