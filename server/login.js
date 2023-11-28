@@ -3,22 +3,24 @@ const router = new Router();
 
 router.get("/auth/callback", async (ctx) => {
   try {
-    console.log("queryParameters: ", queryParameters);
     const queryParameters = ctx.request.query;
-    const { user_id, auth_date, hash } = queryParameters;
+    const { id, auth_date, hash, first_name, username, last_name } =
+      queryParameters;
     const botToken = "6317366127:AAHPEvgl5k-qfH3uFJ_aQ7slcqDt-vBtZZE";
     const userIdentifier =
       "generate_user_identifier_based_on_user_id_and_state"; // 生成用户标识
-    // 验证回调参数的有效性
+
     const isValid = validateTelegramCallback(
-      user_id,
+      id,
       auth_date,
       hash,
+      first_name,
+      username,
+      last_name,
       botToken
     );
 
     if (isValid) {
-      // 处理用户登录逻辑，比如生成令牌、设置用户会话等
       const authToken = generateAuthToken(userIdentifier);
       ctx.redirect(
         `https://test-tg-app.vercel.app/callback?token=${authToken}`
@@ -32,7 +34,15 @@ router.get("/auth/callback", async (ctx) => {
 });
 
 // 验证回调参数的函数
-function validateTelegramCallback(user_id, auth_date, hash, botToken) {
+function validateTelegramCallback(
+  id,
+  auth_date,
+  hash,
+  first_name,
+  username,
+  last_name,
+  botToken
+) {
   return true;
 }
 
@@ -43,9 +53,4 @@ function generateAuthToken(userIdentifier) {
 }
 
 // 将路由导出为一个函数，接收 Koa 应用实例作为参数
-module.exports = function (app) {
-  // 在这里可以根据需要添加更多路由
-  // 例如：router.get('/another-route', async (ctx) => { /* 处理程序 */ });
-
-  return router;
-};
+module.exports = router;
