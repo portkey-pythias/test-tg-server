@@ -3,15 +3,15 @@ const login = require("./login");
 
 const router = new Router();
 
-router.get("/login/X", async (ctx, next) => {
+router.get("/login/X", (ctx, next) => {
   try {
-    const requestToken = await login.getRequestToken(ctx);
+    const url = login.getRequestToken(ctx);
     // 保存请求令牌
-    ctx.state.requestToken = requestToken;
+    // ctx.state.requestToken = requestToken;
     // 重定向到授权 URL
-    // ctx.redirect(data.oauth_callback);
-    ctx.status = 200;
-    ctx.body = response;
+    ctx.redirect(url);
+    // ctx.status = 200;
+    // ctx.body = response;
   } catch (e) {
     console.log("error: ", e.toString());
   }
