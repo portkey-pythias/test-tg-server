@@ -1,55 +1,54 @@
-const Router = require("koa-router");
-const router = new Router();
+const signture = require("../utils/signture");
+const qs = require("querystring");
+const request = require("request");
 
-router.get("/auth/callback", async (ctx) => {
-  try {
-    const queryParameters = ctx.request.query;
-    const { id, auth_date, hash, first_name, username, last_name } =
-      queryParameters;
-    const botToken = "6317366127:AAHPEvgl5k-qfH3uFJ_aQ7slcqDt-vBtZZE";
-    const userIdentifier =
-      "generate_user_identifier_based_on_user_id_and_state"; // 生成用户标识
+const consumerKey = "LTlQWkhBRFZ3Yl9RN1ZmTFZBM0Y6MTpjaQ";
+const consumerSecret = "irUTnbcYmPXQkt5b6XQ7NxwYZCbcOJe3MLB75xVVMOUzRovhmX";
 
-    const isValid = validateTelegramCallback(
-      id,
-      auth_date,
-      hash,
-      first_name,
-      username,
-      last_name,
-      botToken
-    );
+// 获取请求令牌
+async function getRequestToken(ctx) {
+  // 构建请求参数
+  const params = {
+    client_id: consumerKey,
+    client_secret: consumerSecret,
+    scope: "user:read",
+    redirect_uri: "https://test-tg-app.vercel.app/oauth/callback/X",
+  };
 
-    if (isValid) {
-      const authToken = generateAuthToken(userIdentifier);
-      ctx.redirect(
-        `https://test-tg-app.vercel.app/callback?token=${authToken}`
-      );
-    }
-  } catch (e) {
-    // 验证失败，处理错误逻辑
-    ctx.status = 200;
-    ctx.body = { message: "login error", data: ctx.request.query };
-  }
-});
+  // 生成签名
+  const signature = signture.generateSignature(params, consumerSecret);
 
-// 验证回调参数的函数
-function validateTelegramCallback(
-  id,
-  auth_date,
-  hash,
-  first_name,
-  username,
-  last_name,
-  botToken
-) {
-  return true;
+  // 构建请求 URL
+  const url =
+    "https://api.twitter.com/oauth/request_token?" +
+    qs.stringify(params) +
+    "&oauth_signature=" +
+    encodeURIComponent(signature);
+
+  console.log("url: ", url);
+
+  // 发送请求
+  const response = await new Promise((resolve, reject) => {
+    request.get(url, (error, response) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(response);
+    });
+  });
+
+  // console.log("response: ", response);
+
+  // if (response.status !== 200) {
+  //   console.log("response: ", JSON.stringify(response.status));
+  //   throw Error("请求失败");
+  // }
+
+  // const data = await response.json();
+
+  return response;
 }
 
-// 生成用户令牌的函数
-function generateAuthToken(userIdentifier) {
-  // 在这里实现生成用户令牌的逻辑，可以使用 JWT 等机制
-  return userIdentifier;
-}
-
-module.exports = router;
+module.exports = {
+  getRequestToken,
+};

@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node bot/beangotownBot.js",
+    "dev": "pm2 start app.js --watch",
     "start": "node app.js",
-    "start:test": "node bot/xiaoshitouBot.js",
     "stop": "pm2 stop all",
     "clean": "yarn stop && pm2 delete all",
     "login:tg": "node app.js"
@@ -15,9 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.4.1",
+    "koa-request": "^1.0.0",
     "koa-route": "^3.2.0",
     "koa-router": "^12.0.1",
     "koa-static": "^5.0.0",
