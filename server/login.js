@@ -29,15 +29,15 @@ async function getRequestToken(ctx) {
 
   // 发送请求
   const response = await new Promise((resolve, reject) => {
-    request.get(url, (error, response) => {
+    request.get(url, (error, res) => {
       if (error) {
         reject(error);
       }
-      resolve(response);
+      resolve(res);
     });
   });
 
-  // console.log("response: ", response);
+  console.log("response: ", response);
 
   // if (response.status !== 200) {
   //   console.log("response: ", JSON.stringify(response.status));
