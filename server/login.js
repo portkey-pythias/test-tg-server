@@ -20,7 +20,7 @@ async function getRequestToken(ctx) {
 
   // 构建请求 URL
   const url =
-    "https://api.twitter.com/oauth/request_token?" +
+    "https://api.twitter.com/oauth2/request_token?" +
     qs.stringify(params) +
     "&oauth_signature=" +
     encodeURIComponent(signature);
