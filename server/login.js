@@ -29,7 +29,7 @@ async function getRequestToken(ctx) {
 
   // 发送请求
   const response = await new Promise((resolve, reject) => {
-    request.get(url, (error, res) => {
+    request.post(url, (error, res) => {
       if (error) {
         reject(error);
       }
