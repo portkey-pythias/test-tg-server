@@ -1,6 +1,5 @@
-const signture = require("../utils/signture");
 const qs = require("querystring");
-const request = require("request");
+const axios = require("axios");
 
 const consumerKey = "LTlQWkhBRFZ3Yl9RN1ZmTFZBM0Y6MTpjaQ";
 const consumerSecret = "irUTnbcYmPXQkt5b6XQ7NxwYZCbcOJe3MLB75xVVMOUzRovhmX";
@@ -15,7 +14,7 @@ function getAuth(ctx) {
     code_challenge: "challenge",
     code_challenge_method: "plain",
     scope: "users.read",
-    redirect_uri: "https://test-tg-app.vercel.app/oauth/callback/X",
+    redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
     // redirect_uri: "http://192.168.11.139:3000/oauth/callback/X",
     state: "state",
     response_type: "code",
@@ -29,22 +28,22 @@ async function authToken({ code }) {
   const params = {
     grant_type: "authorization_code",
     client_id: consumerKey,
-    redirect_uri: "https://test-tg-app.vercel.app/",
+    redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
     code_verifier: "challenge",
     code,
   };
 
-  const options = {
+  const res = await axios({
+    method: "post",
+    url: auth,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: qs.stringify(params),
-  };
-  console.log("options: ", options);
-  request.post(auth, options, (error, response) => {
-    console.log("error: ", error);
-    console.log("response: ", response);
+    data: params,
+    paramsSerializer: (params) => qs.stringify(params),
   });
+
+  console.log("authToken reponse: ", res);
 }
 
 module.exports = {
