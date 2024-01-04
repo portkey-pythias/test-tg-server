@@ -5,48 +5,49 @@ const request = require("request");
 const consumerKey = "LTlQWkhBRFZ3Yl9RN1ZmTFZBM0Y6MTpjaQ";
 const consumerSecret = "irUTnbcYmPXQkt5b6XQ7NxwYZCbcOJe3MLB75xVVMOUzRovhmX";
 
+const authorize = "https://twitter.com/i/oauth2/authorize";
+const auth = "https://api.twitter.com/2/oauth2/token";
+
 // 获取请求令牌
-function getRequestToken(ctx) {
-  // 构建请求参数
+function getAuth(ctx) {
   const params = {
     client_id: consumerKey,
     code_challenge: "challenge",
     code_challenge_method: "plain",
     scope: "users.read",
-    redirect_uri: "https://test-tg-app.vercel.app/oauth/callback/X",
+    // redirect_uri: "https://test-tg-app.vercel.app/oauth/callback/X",
+    redirect_uri: "http://192.168.11.139:3000/oauth/callback/X",
     state: "state",
+    response_type: "code",
   };
 
-  // 生成签名
-  // const signature = signture.generateSignature(params, consumerSecret);
+  return `${authorize}?${qs.stringify(params)}`;
+}
 
-  // 构建请求 URL
-  const url = "https://twitter.com/i/oauth2/authorize?" + qs.stringify(params);
+// 访问令牌
+async function authToken({ code }) {
+  const params = {
+    grant_type: "authorization_code",
+    client_id: consumerKey,
+    redirect_uri: "https://test-tg-app.vercel.app/",
+    code_verifier: "challenge",
+    code,
+  };
 
-  console.log("url: ", url);
-
-  // 发送请求
-  // const response = await new Promise((resolve, reject) => {
-  //   request.post(url, (error, res) => {
-  //     if (error) {
-  //       reject(error);
-  //     }
-  //     resolve(res);
-  //   });
-  // });
-
-  // console.log("response: ", response);
-
-  // if (response.status !== 200) {
-  //   console.log("response: ", JSON.stringify(response.status));
-  //   throw Error("请求失败");
-  // }
-
-  // const data = await response.json();
-
-  return url;
+  const options = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: qs.stringify(params),
+  };
+  console.log("options: ", options);
+  request.post(auth, options, (error, response) => {
+    console.log("error: ", error);
+    console.log("response: ", response);
+  });
 }
 
 module.exports = {
-  getRequestToken,
+  getAuth,
+  authToken,
 };
