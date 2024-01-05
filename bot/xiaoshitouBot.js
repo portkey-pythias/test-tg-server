@@ -22,22 +22,16 @@ bot.onText(/^\/start$/, (msg, match) => {
         ],
         [
           {
-            text: "test TG SDK",
+            text: "awaken",
             web_app: {
-              url: "https://test-tg-app.vercel.app",
+              url: "https://test-tg-app.vercel.app/awaken",
             },
           },
           {
-            text: "Beangotown",
+            text: "portkey",
             web_app: {
-              url: "https://test-tg-app.vercel.app?token=xiaoshitou",
+              url: "https://test-tg-app.vercel.app/portkey",
             },
-          },
-        ],
-        [
-          {
-            text: "Awaken",
-            url: "https://www.awaken.finance/trading",
           },
         ],
       ],

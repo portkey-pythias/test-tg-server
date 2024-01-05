@@ -26,7 +26,7 @@ router.get("/tg/getAccessToken", async (ctx, next) => {
   const queryParameters = ctx.request.query;
   ctx.response.set("content-type", "application/json");
 
-  const accessToken = Math.random().toString();
+  const accessToken = (Math.random() * 100000000).toFixed();
 
   accessTokenMap.set(queryParameters.userId, accessToken);
 
