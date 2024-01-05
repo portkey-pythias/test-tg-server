@@ -14,8 +14,8 @@ function getAuth(ctx) {
     code_challenge: "challenge",
     code_challenge_method: "plain",
     scope: "users.read",
-    redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
-    // redirect_uri: "http://192.168.11.139:3000/oauth/callback/X",
+    // redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
+    redirect_uri: "http://192.168.11.139:3000/oauth/callback/X",
     state: "state",
     response_type: "code",
   };
@@ -28,7 +28,7 @@ async function authToken({ code }) {
   const params = {
     grant_type: "authorization_code",
     client_id: consumerKey,
-    redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
+    redirect_uri: "http://192.168.11.139:3000/oauth/callback/X",
     code_verifier: "challenge",
     code,
   };

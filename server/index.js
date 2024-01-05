@@ -3,15 +3,12 @@ const login = require("./login");
 
 const router = new Router();
 
+const accessTokenMap = new Map();
+
 router.get("/login/X", (ctx, next) => {
   try {
     const url = login.getAuth(ctx);
-    // 保存请求令牌
-    // ctx.state.requestToken = requestToken;
-    // 重定向到授权 URL
     ctx.redirect(url);
-    // ctx.status = 200;
-    // ctx.body = response;
   } catch (e) {
     console.log("error: ", e.toString());
   }
@@ -23,6 +20,46 @@ router.get("/oauth/callback/X", async (ctx, next) => {
 
   login.authToken(queryParameters);
 });
+
+router.get("/tg/getAccessToken", async (ctx, next) => {
+  console.log("/tg/getAccessToken : ", ctx.request.query);
+  const queryParameters = ctx.request.query;
+  ctx.response.set("content-type", "application/json");
+
+  const accessToken = Math.random().toString();
+
+  accessTokenMap.set(queryParameters.userId, accessToken);
+
+  const json = {
+    accessToken,
+    userId: queryParameters.userId,
+  };
+
+  ctx.body = JSON.stringify(json);
+  ctx.status = 200;
+});
+
+router.post("/tg/auth/token", async (ctx, next) => {
+  const queryParameters = ctx.request.query;
+  ctx.response.set("content-type", "application/json");
+
+  const accessToken = accessTokenMap.get(queryParameters.userId);
+
+  const loginStatus =
+    accessToken === queryParameters.accessToken
+      ? "login success"
+      : "login fail";
+
+  const json = {
+    userId: queryParameters.userId,
+    loginStatus,
+  };
+
+  ctx.body = JSON.stringify(json);
+  ctx.status = 200;
+});
+
+
 
 module.exports = router;
 

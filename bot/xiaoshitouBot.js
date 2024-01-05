@@ -24,13 +24,13 @@ bot.onText(/^\/start$/, (msg, match) => {
           {
             text: "test TG SDK",
             web_app: {
-              url: "https://test-tg-app.vercel.app?isTgApp=true",
+              url: "https://test-tg-app.vercel.app",
             },
           },
           {
             text: "Beangotown",
             web_app: {
-              url: "https://www.beangotown.com/",
+              url: "https://test-tg-app.vercel.app?token=xiaoshitou",
             },
           },
         ],
