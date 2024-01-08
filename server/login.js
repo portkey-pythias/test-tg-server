@@ -30,7 +30,7 @@ async function authToken({ code }) {
   const params = {
     grant_type: "authorization_code",
     client_id: consumerKey,
-    redirect_uri: "https://test-tg-server.vercel.app/login/X/success",
+    redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
     code_verifier: "challenge",
     code,
   };
