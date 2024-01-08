@@ -14,11 +14,13 @@ function getAuth(ctx) {
     code_challenge: "challenge",
     code_challenge_method: "plain",
     scope: "users.read",
-    // redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
-    redirect_uri: "http://192.168.11.139:3000/oauth/callback/X",
+    redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
+    // redirect_uri: "192.168.11.149:6666/oauth/callback/X",
     state: "state",
     response_type: "code",
   };
+
+  console.log("请求登录");
 
   return `${authorize}?${qs.stringify(params)}`;
 }
@@ -28,7 +30,7 @@ async function authToken({ code }) {
   const params = {
     grant_type: "authorization_code",
     client_id: consumerKey,
-    redirect_uri: "http://192.168.11.139:3000/oauth/callback/X",
+    redirect_uri: "https://test-tg-app.vercel.app/login",
     code_verifier: "challenge",
     code,
   };
