@@ -16,16 +16,12 @@ router.get("/login/X", (ctx, next) => {
 
 router.get("/oauth/callback/X", async (ctx, next) => {
   const queryParameters = ctx.request.query;
-  console.log("/oauth/callback/X 参数 :", queryParameters);
 
   const response = await login.authToken(queryParameters);
 
-  ctx.body = {
-    data: JSON.stringify(response),
-    status: 200,
-  };
-
-  ctx.status = 200;
+  ctx.redirect(
+    `https://test-tg-app.vercel.app/login?accessToken=${response.access_token}`
+  );
 });
 
 router.get("/login/X/success", () => {
