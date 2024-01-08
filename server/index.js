@@ -28,6 +28,13 @@ router.get("/oauth/callback/X", async (ctx, next) => {
   ctx.status = 200;
 });
 
+router.get("/login/X/success", () => {
+  const queryParameters = ctx.request.query;
+  ctx.body = {
+    data: JSON.stringify(queryParameters),
+  };
+  ctx.status = 200;
+});
 router.get("/tg/getAccessToken", async (ctx, next) => {
   console.log("/tg/getAccessToken : ", ctx.request.query);
   const queryParameters = ctx.request.query;
