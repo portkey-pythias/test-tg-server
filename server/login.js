@@ -20,8 +20,6 @@ function getAuth(ctx) {
     response_type: "code",
   };
 
-  console.log("请求登录");
-
   return `${authorize}?${qs.stringify(params)}`;
 }
 
@@ -36,7 +34,7 @@ async function authToken({ code }) {
   };
 
   try {
-    const res = await axios({
+    const response = await axios({
       method: "post",
       url: auth,
       headers: {
@@ -46,11 +44,10 @@ async function authToken({ code }) {
       paramsSerializer: (params) => qs.stringify(params),
     });
 
-    console.log("authToken reponse: ", res);
+    return response.data;
   } catch (e) {
     console.log("e: ", e);
   }
-
 }
 
 module.exports = {
