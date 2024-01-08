@@ -35,17 +35,22 @@ async function authToken({ code }) {
     code,
   };
 
-  const res = await axios({
-    method: "post",
-    url: auth,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    data: params,
-    paramsSerializer: (params) => qs.stringify(params),
-  });
+  try {
+    const res = await axios({
+      method: "post",
+      url: auth,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      data: params,
+      paramsSerializer: (params) => qs.stringify(params),
+    });
 
-  console.log("authToken reponse: ", res);
+    console.log("authToken reponse: ", res);
+  } catch (e) {
+    console.log("e: ", e);
+  }
+
 }
 
 module.exports = {
