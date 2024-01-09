@@ -18,7 +18,7 @@ function getAuth(ctx) {
     // redirect_uri: "192.168.11.149:6666/oauth/callback/X",
     state: "state",
     response_type: "code",
-    force_login: true,
+    auth_prompt: false,
   };
 
   return `${authorize}?${qs.stringify(params)}`;
