@@ -1,14 +1,14 @@
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const cors = require("koa2-cors");
-const router = require("./server/index");
+const router = require("./routes/index");
 
 const app = new Koa();
 app.use(cors());
-app.use(router.routes());
 app.use(bodyParser());
+app.use(router.routes());
 
-const port = process.env.PORT || 6666;
+const port = process.env.PORT || 8888;
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

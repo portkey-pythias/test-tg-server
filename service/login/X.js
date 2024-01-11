@@ -1,5 +1,6 @@
 const qs = require("querystring");
 const axios = require("axios");
+const getBaseUrl = require("../../utils/getBaseUrl");
 
 const consumerKey = "LTlQWkhBRFZ3Yl9RN1ZmTFZBM0Y6MTpjaQ";
 const consumerSecret = "irUTnbcYmPXQkt5b6XQ7NxwYZCbcOJe3MLB75xVVMOUzRovhmX";
@@ -8,30 +9,29 @@ const authorize = "https://twitter.com/i/oauth2/authorize";
 const auth = "https://api.twitter.com/2/oauth2/token";
 
 // 获取请求令牌
-function getAuth(ctx) {
-  const params = {
+function getAuth(params, query, ctx) {
+  const json = {
     client_id: consumerKey,
     code_challenge: "challenge",
     code_challenge_method: "plain",
     scope: "users.read",
-    redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
-    // redirect_uri: "192.168.11.149:6666/oauth/callback/X",
+    redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
     state: "state",
     response_type: "code",
     auth_prompt: false,
   };
 
-  return `${authorize}?${qs.stringify(params)}`;
+  return `${authorize}?${qs.stringify(json)}`;
 }
 
 // 访问令牌
-async function authToken({ code }) {
-  const params = {
+async function authToken(params, query, ctx) {
+  const json = {
     grant_type: "authorization_code",
     client_id: consumerKey,
-    redirect_uri: "https://test-tg-server.vercel.app/oauth/callback/X",
+    redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
     code_verifier: "challenge",
-    code,
+    code: query.code,
   };
 
   try {
@@ -41,11 +41,15 @@ async function authToken({ code }) {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      data: params,
+      data: json,
       paramsSerializer: (params) => qs.stringify(params),
     });
 
-    return response.data;
+    const { access_token } = response;
+
+    return {
+      accessToken: access_token,
+    };
   } catch (e) {
     console.log("e: ", e);
   }

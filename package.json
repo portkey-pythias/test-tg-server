@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pm2 start app.js --watch",
-    "start": "node app.js",
+    "dev": "NODE_ENV=dev pm2 start app.js --watch",
+    "start": "NODE_ENV=prod node app.js",
     "stop": "pm2 stop all",
     "clean": "yarn stop && pm2 delete all",
     "login:tg": "node app.js"
