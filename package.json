@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=dev pm2 start app.js --watch",
-    "start": "NODE_ENV=prod node app.js",
+    "start": "NODE_ENV=prod pm2 start app.js",
     "stop": "pm2 stop all",
-    "clean": "yarn stop && pm2 delete all",
-    "login:tg": "node app.js"
+    "clean": "yarn stop && pm2 delete all"
   },
   "keywords": [],
   "author": "",
