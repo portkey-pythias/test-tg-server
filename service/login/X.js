@@ -15,7 +15,8 @@ function getAuth(params, query, ctx) {
     code_challenge: "challenge",
     code_challenge_method: "plain",
     scope: "users.read",
-    redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
+    redirect_uri: `https://test-tg-server.vercel.app/login/getAccessToken/${params.type}`,
+    // redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
     state: "state",
     response_type: "code",
     auth_prompt: false,
@@ -29,7 +30,8 @@ async function authToken(params, query, ctx) {
   const json = {
     grant_type: "authorization_code",
     client_id: consumerKey,
-    redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
+    redirect_uri: `https://test-tg-server.vercel.app/login/getAccessToken/${params.type}`,
+    // redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
     code_verifier: "challenge",
     code: query.code,
   };
