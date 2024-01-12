@@ -5,18 +5,15 @@ const clientId = "75ii8jex2ds14b3xp4xj1h52m15or0";
 const clientSecret = "cfitv8xr306hmc2jvgoesejpi9760s";
 
 const authorize = "https://id.twitch.tv/oauth2/authorize";
-const auth = "https://id.twitch.tv/oauth2/toke";
+const auth = "https://id.twitch.tv/oauth2/token";
 // 获取请求令牌
 function getAuth(params, query, ctx) {
   const json = {
     client_id: clientId,
-    response_type: "code",
-    scope: "channel:read:polls",
     redirect_uri: `https://test-tg-server.vercel.app/login/getAccessToken/${params.type}`,
-    // redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
+    response_type: "code",
+    scope: encodeURIComponent("channel:manage:polls+channel:read:polls"),
     state: "state",
-
-    auth_prompt: false,
   };
 
   return `${authorize}?${qs.stringify(json)}`;
@@ -28,7 +25,6 @@ async function authToken(params, query, ctx) {
     client_id: clientId,
     grant_type: "authorization_code",
     redirect_uri: `https://test-tg-server.vercel.app/login/getAccessToken/${params.type}`,
-    // redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
     code: query.code,
     client_secret: clientSecret,
   };
