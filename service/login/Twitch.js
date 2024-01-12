@@ -12,7 +12,7 @@ function getAuth(params, query, ctx) {
     client_id: clientId,
     redirect_uri: `https://test-tg-server.vercel.app/login/getAccessToken/${params.type}`,
     response_type: "code",
-    scope: "channel:read:polls",
+    // scope: "channel:read:polls",
     state: "state",
   };
 
