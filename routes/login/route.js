@@ -1,5 +1,6 @@
 const Router = require("koa-router");
 const loginService = require("../../service/login/index");
+const qs = require("querystring");
 
 const loginRoute = new Router();
 
@@ -25,7 +26,7 @@ loginRoute.get("/getAccessToken/:type", async (ctx) => {
   const params = ctx.params;
   const response = await loginService.getAccessToken(params, query, ctx);
   ctx.redirect(
-    `https://test-tg-app.vercel.app/login?accessToken=${response.accessToken}&loginType=${params.type}`
+    `https://test-tg-app.vercel.app/login?${qs.stringify(response)}`
   );
 });
 

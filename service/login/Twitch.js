@@ -12,7 +12,6 @@ function getAuth(params, query, ctx) {
     client_id: clientId,
     redirect_uri: `https://test-tg-server.vercel.app/login/getAccessToken/${params.type}`,
     response_type: "code",
-    // scope: "channel:read:polls",
     state: "state",
   };
 
@@ -39,8 +38,6 @@ async function authToken(params, query, ctx) {
       data: json,
       paramsSerializer: (params) => qs.stringify(params),
     });
-
-    console.log("Twitch login :", response.data);
 
     const { access_token } = response.data;
 
