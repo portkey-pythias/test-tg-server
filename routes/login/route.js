@@ -26,7 +26,7 @@ loginRoute.get("/getAccessToken/:type", async (ctx) => {
   const params = ctx.params;
   const response = await loginService.getAccessToken(params, query, ctx);
   ctx.redirect(
-    `https://test-tg-app.vercel.app/login?${qs.stringify(response)}`
+    `https://test-tg-app.vercel.app/thirdLogin?${qs.stringify(response)}`
   );
 });
 
