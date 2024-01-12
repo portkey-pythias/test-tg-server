@@ -43,7 +43,7 @@ async function authToken(params, query, ctx) {
       paramsSerializer: (params) => qs.stringify(params),
     });
 
-    console.log("推特登录： ", response.data);
+    console.log("Twitch login :", response.data);
 
     const { access_token } = response.data;
 
