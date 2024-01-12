@@ -39,6 +39,8 @@ async function authToken(params, query, ctx) {
       paramsSerializer: (params) => qs.stringify(params),
     });
 
+    console.log("Twitch login : ", response.data);
+
     const { access_token } = response.data;
 
     return {
