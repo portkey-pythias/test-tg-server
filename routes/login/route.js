@@ -1,6 +1,5 @@
 const Router = require("koa-router");
 const loginService = require("../../service/login/index");
-const getBaseUrl = require("../../utils/getBaseUrl");
 
 const loginRoute = new Router();
 
@@ -26,9 +25,7 @@ loginRoute.get("/getAccessToken/:type", async (ctx) => {
   const params = ctx.params;
   const response = await loginService.getAccessToken(params, query, ctx);
   ctx.redirect(
-    `${getBaseUrl()}/login?accessToken=${response.accessToken}&loginType=${
-      params.type
-    }`
+    `https://test-tg-server.vercel.app/login?accessToken=${response.accessToken}&loginType=${params.type}`
   );
 });
 

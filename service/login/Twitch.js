@@ -1,6 +1,5 @@
 const qs = require("querystring");
 const axios = require("axios");
-const getBaseUrl = require("../../utils/getBaseUrl");
 
 const clientId = "hbjvbov3ngiisv2qzc1rj8a17x5i65";
 

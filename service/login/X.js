@@ -1,6 +1,5 @@
 const qs = require("querystring");
 const axios = require("axios");
-const getBaseUrl = require("../../utils/getBaseUrl");
 
 const consumerKey = "LTlQWkhBRFZ3Yl9RN1ZmTFZBM0Y6MTpjaQ";
 const consumerSecret = "irUTnbcYmPXQkt5b6XQ7NxwYZCbcOJe3MLB75xVVMOUzRovhmX";
