@@ -10,7 +10,7 @@ const auth = "https://id.twitch.tv/oauth2/toke";
 function getAuth(params, query, ctx) {
   const json = {
     client_id: clientId,
-    response_type: "token",
+    response_type: "code",
     scope: "channel:read:polls",
     redirect_uri: `https://test-tg-server.vercel.app/login/getAccessToken/${params.type}`,
     // redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
