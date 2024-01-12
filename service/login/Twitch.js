@@ -43,7 +43,9 @@ async function authToken(params, query, ctx) {
       paramsSerializer: (params) => qs.stringify(params),
     });
 
-    const { access_token } = response;
+    console.log("推特登录： ", response.data);
+
+    const { access_token } = response.data;
 
     return {
       accessToken: access_token,
