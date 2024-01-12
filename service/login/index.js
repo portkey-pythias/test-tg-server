@@ -14,7 +14,8 @@ function getAccessToken(params, query, ctx) {
   switch (params.type) {
     case "X":
       return loginX.authToken(params, query, ctx);
-    case "facebook":
+    case "Twitch":
+      return loginTwitch.authToken(params, query, ctx);
   }
 }
 
