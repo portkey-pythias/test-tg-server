@@ -2,6 +2,7 @@ const qs = require("querystring");
 const axios = require("axios");
 
 const clientId = "hbjvbov3ngiisv2qzc1rj8a17x5i65";
+const clientSecret = "cfitv8xr306hmc2jvgoesejpi9760s";
 
 const authorize = "https://id.twitch.tv/oauth2/authorize";
 const auth = "https://id.twitch.tv/oauth2/toke";
@@ -10,7 +11,7 @@ function getAuth(params, query, ctx) {
   const json = {
     client_id: clientId,
     response_type: "token",
-    // scope: ,
+    scope: "channel:read:polls",
     redirect_uri: `https://test-tg-server.vercel.app/login/getAccessToken/${params.type}`,
     // redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
     state: "state",
@@ -25,11 +26,11 @@ function getAuth(params, query, ctx) {
 async function authToken(params, query, ctx) {
   const json = {
     client_id: clientId,
-    grant_type: "code",
+    grant_type: "authorization_code",
     redirect_uri: `https://test-tg-server.vercel.app/login/getAccessToken/${params.type}`,
     // redirect_uri: `${getBaseUrl()}/login/getAccessToken/${params.type}`,
     code: query.code,
-    client_secret,
+    client_secret: clientSecret,
   };
 
   try {
