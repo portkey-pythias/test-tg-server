@@ -40,12 +40,16 @@ async function authToken(params, query, ctx) {
       paramsSerializer: (params) => qs.stringify(params),
     });
 
-    console.log("Twitch login :", response.data);
+    console.log("discord login :", response.data);
 
-    const { access_token } = response.data;
+    const { access_token, refresh_token, token_type } = response.data;
 
     return {
       accessToken: access_token,
+      loginType: params.type,
+      tokenType: token_type,
+      refreshToken: refresh_token,
+      status: "success",
     };
   } catch (e) {
     console.log("e: ", e);
