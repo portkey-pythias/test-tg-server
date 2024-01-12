@@ -1,7 +1,7 @@
 const qs = require("querystring");
 const axios = require("axios");
 
-const clientId = "hbjvbov3ngiisv2qzc1rj8a17x5i65";
+const clientId = "75ii8jex2ds14b3xp4xj1h52m15or0";
 const clientSecret = "cfitv8xr306hmc2jvgoesejpi9760s";
 
 const authorize = "https://id.twitch.tv/oauth2/authorize";
